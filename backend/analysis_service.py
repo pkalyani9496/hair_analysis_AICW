@@ -1,4 +1,5 @@
 import base64
+import gc
 import json
 from functools import lru_cache
 from pathlib import Path
@@ -13,6 +14,9 @@ from torchvision import transforms
 
 from backend.recommendations import COLOR_PALETTE, recommend_colors, recommend_haircuts
 
+
+# Restrict PyTorch thread pool to 1 to minimize memory overhead in constrained cloud environments
+torch.set_num_threads(1)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 MODELS_DIR = BASE_DIR / "models"
@@ -397,7 +401,25 @@ class HairAnalysisService:
         result = image * (1 - alpha) + recolored.astype(np.float32) * alpha
         return np.uint8(np.clip(result, 0, 255))
 
+    @staticmethod
+    def serialize_mask(mask: np.ndarray, max_dim: int = 256):
+        h, w = mask.shape[:2]
+        if max(h, w) > max_dim:
+            scale = max_dim / max(h, w)
+            new_w = max(1, int(round(w * scale)))
+            new_h = max(1, int(round(h * scale)))
+            downsampled = cv2.resize(mask.astype(np.uint8), (new_w, new_h), interpolation=cv2.INTER_NEAREST)
+        else:
+            downsampled = mask.astype(np.uint8)
+        return downsampled.tolist()
+
     def analyze_image(self, image: Image.Image, region="Middle", target_color=None):
+        # Constrain maximum dimension to 800px to maintain minimal peak memory on cloud instances
+        max_dim = 800
+        if max(image.width, image.height) > max_dim:
+            image = image.copy()
+            image.thumbnail((max_dim, max_dim), Image.Resampling.BILINEAR)
+
         hair_type_model, hair_type_classes = self.load_hair_type_model()
         disease_model, disease_classes, disease_temperature, disease_thresholds = self.load_disease_model()
         segmentation_model = self.load_segmentation_model()
@@ -406,7 +428,7 @@ class HairAnalysisService:
         quality = self.calculate_image_quality(image)
         classifier_tensor = self.prepare_classifier_tensor(image)
 
-        original_image, hair_mask, probability_mask, coverage = self.segment_hair(image, segmentation_model)
+        original_image, hair_mask, _, coverage = self.segment_hair(image, segmentation_model)
         hair_type, hair_confidence, hair_top, _ = self.predict_classifier_tensor(
             classifier_tensor,
             hair_type_model,
@@ -478,7 +500,14 @@ class HairAnalysisService:
             encoded = cv2.imencode(".png", cv2.cvtColor(preview, cv2.COLOR_RGB2BGR))[1]
             preview_b64 = base64.b64encode(encoded.tobytes()).decode("utf-8")
 
-        return {
+        # Downsample masks to max 256px for lightweight JSON transmission and canvas rendering
+        serialized_hair_mask = self.serialize_mask(hair_mask, max_dim=256)
+        serialized_region_masks = {
+            r_name: self.serialize_mask(r_mask, max_dim=256)
+            for r_name, r_mask in region_masks.items()
+        }
+
+        response_payload = {
             "status": "ok",
             "hair_type": hair_type,
             "hair_type_confidence": round(float(hair_confidence), 2),
@@ -490,11 +519,8 @@ class HairAnalysisService:
             "disease_top_predictions": disease_top_formatted,
             "coverage": round(float(coverage), 2),
             "quality": quality,
-            "hair_mask": hair_mask.astype(np.uint8).tolist(),
-            "probability_mask": probability_mask.astype(float).tolist(),
-            "region_masks": {
-                region_name: mask.astype(np.uint8).tolist() for region_name, mask in region_masks.items()
-            },
+            "hair_mask": serialized_hair_mask,
+            "region_masks": serialized_region_masks,
             "color": {
                 "rgb": [int(v) for v in rgb_color],
                 "label": hair_color_label,
@@ -517,6 +543,12 @@ class HairAnalysisService:
                 "project": "AI Hair Intelligence",
             },
         }
+
+        # Explicit cleanup to keep memory minimal
+        del classifier_tensor, original_image, image_rgb
+        gc.collect()
+
+        return response_payload
 
 
 class DoubleConv(nn.Module):

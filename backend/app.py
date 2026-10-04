@@ -76,7 +76,11 @@ async def analyze_image(
     except Exception as exc:
         raise HTTPException(status_code=400, detail=f"Could not read image: {exc}") from exc
 
-    result = service.analyze_image(image, region=region or "Whole Hair", target_color=target_color)
+    try:
+        result = service.analyze_image(image, region=region or "Whole Hair", target_color=target_color)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Image analysis failed: {exc}") from exc
+
     return result
 
 
