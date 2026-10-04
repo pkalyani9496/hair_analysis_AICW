@@ -1,0 +1,8 @@
+{
+    "classes": [
+        "Curly Hair",
+        "Straight Hair",
+        "Wavy Hair"
+    ],
+    "image_size": 224
+}

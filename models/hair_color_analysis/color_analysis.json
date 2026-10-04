@@ -1,0 +1,41 @@
+{
+    "Scalp": {
+        "rgb": [
+            44,
+            45,
+            50
+        ],
+        "detected_color": "Dark Brown / Black",
+        "recommendations": [
+            "Chocolate Brown",
+            "Burgundy",
+            "Deep Brown"
+        ]
+    },
+    "Middle": {
+        "rgb": [
+            45,
+            47,
+            53
+        ],
+        "detected_color": "Dark Brown / Black",
+        "recommendations": [
+            "Chocolate Brown",
+            "Burgundy",
+            "Deep Brown"
+        ]
+    },
+    "Ends": {
+        "rgb": [
+            46,
+            48,
+            51
+        ],
+        "detected_color": "Dark Brown / Black",
+        "recommendations": [
+            "Chocolate Brown",
+            "Burgundy",
+            "Deep Brown"
+        ]
+    }
+}

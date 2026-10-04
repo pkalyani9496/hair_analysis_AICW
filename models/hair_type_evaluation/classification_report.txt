@@ -1,0 +1,14 @@
+HAIR TYPE MODEL EVALUATION
+============================================================
+
+Test Accuracy: 91.09%
+
+               precision    recall  f1-score   support
+
+   Curly Hair     0.9429    0.9429    0.9429        35
+Straight Hair     0.8378    0.9394    0.8857        33
+    Wavy Hair     0.9655    0.8485    0.9032        33
+
+     accuracy                         0.9109       101
+    macro avg     0.9154    0.9102    0.9106       101
+ weighted avg     0.9159    0.9109    0.9112       101

@@ -1,0 +1,37 @@
+HAIR DISEASE MODEL EVALUATION
+============================================================
+
+Test Accuracy: 92.67%
+
+                       precision    recall  f1-score   support
+
+      Alopecia Areata     0.9286    0.9750    0.9512       120
+   Contact Dermatitis     0.9597    0.9917    0.9754       120
+         Folliculitis     0.9417    0.9417    0.9417       120
+            Head Lice     0.9746    0.9583    0.9664       120
+        Lichen Planus     0.9619    0.8417    0.8978       120
+Male Pattern Baldness     0.9675    0.9917    0.9794       120
+            Psoriasis     0.8909    0.8167    0.8522       120
+Seborrheic Dermatitis     0.9252    0.8250    0.8722       120
+    Telogen Effluvium     0.8406    0.9667    0.8992       120
+        Tinea Capitis     0.8915    0.9583    0.9237       120
+
+             accuracy                         0.9267      1200
+            macro avg     0.9282    0.9267    0.9259      1200
+         weighted avg     0.9282    0.9267    0.9259      1200
+
+Selective prediction results
+Test coverage: 0.9000
+Selective test accuracy: 0.9694
+
+Selective results by predicted class
+Alopecia Areata: coverage=0.9603, precision=0.9669421487603306, accepted=121
+Contact Dermatitis: coverage=0.9919, precision=0.959349593495935, accepted=123
+Folliculitis: coverage=0.8333, precision=0.98, accepted=100
+Head Lice: coverage=0.9831, precision=0.9913793103448276, accepted=116
+Lichen Planus: coverage=1.0000, precision=0.9619047619047619, accepted=105
+Male Pattern Baldness: coverage=0.9919, precision=0.9754098360655737, accepted=122
+Psoriasis: coverage=0.7636, precision=0.9761904761904762, accepted=84
+Seborrheic Dermatitis: coverage=0.9065, precision=0.9690721649484536, accepted=97
+Telogen Effluvium: coverage=0.7536, precision=0.9615384615384616, accepted=104
+Tinea Capitis: coverage=0.8372, precision=0.9537037037037037, accepted=108

@@ -1,0 +1,61 @@
+{
+  "method": "temperature_scaling",
+  "temperature": 0.7840396165847778,
+  "target_precision": 0.95,
+  "minimum_class_accepted": 20,
+  "no_acceptance_threshold": 1.01,
+  "class_confidence_thresholds": {
+    "Alopecia Areata": 0.80,
+    "Contact Dermatitis": 0.80,
+    "Folliculitis": 0.7578930854797363,
+    "Head Lice": 0.5539670586585999,
+    "Lichen Planus": 0.70,
+    "Male Pattern Baldness": 0.85,
+    "Psoriasis": 0.7546254992485046,
+    "Seborrheic Dermatitis": 0.5879855751991272,
+    "Telogen Effluvium": 0.8703387975692749,
+    "Tinea Capitis": 0.725605309009552
+  },
+  "validation": {
+    "Alopecia Areata": {
+      "accepted": 125,
+      "precision": 0.952
+    },
+    "Contact Dermatitis": {
+      "accepted": 122,
+      "precision": 0.9508196721311475
+    },
+    "Folliculitis": {
+      "accepted": 110,
+      "precision": 0.9545454545454546
+    },
+    "Head Lice": {
+      "accepted": 119,
+      "precision": 1.0
+    },
+    "Lichen Planus": {
+      "accepted": 106,
+      "precision": 0.9905660377358491
+    },
+    "Male Pattern Baldness": {
+      "accepted": 126,
+      "precision": 0.9523809523809523
+    },
+    "Psoriasis": {
+      "accepted": 84,
+      "precision": 0.9523809523809523
+    },
+    "Seborrheic Dermatitis": {
+      "accepted": 102,
+      "precision": 0.9509803921568627
+    },
+    "Telogen Effluvium": {
+      "accepted": 103,
+      "precision": 0.9514563106796117
+    },
+    "Tinea Capitis": {
+      "accepted": 108,
+      "precision": 0.9537037037037037
+    }
+  }
+}

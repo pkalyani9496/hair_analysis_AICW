@@ -1,0 +1,281 @@
+AI HAIR INTELLIGENCE PROJECT
+DATASET VERIFICATION
+Project: C:\Users\kalya\OneDrive\Desktop\hair_analysis
+
+DATASET FOLDER STATUS
+  ✓ hair_disease
+  ✓ hair_segmentation
+  ✓ hair_type
+===========================================================================
+DATASET: hair_disease
+===========================================================================
+Path: C:\Users\kalya\OneDrive\Desktop\hair_analysis\hair_disease
+Total files: 12000
+Image files: 12000
+
+File types:
+  .jpg            12000
+
+IMAGE INTEGRITY
+Corrupted/unreadable images: 0
+
+Image formats:
+  JPEG: 12000
+
+Most common dimensions:
+  720 x 472 : 9840
+  512 x 512 : 2160
+
+Image modes:
+  RGB: 12000
+
+Very small images (<100x100): 0
+===========================================================================
+DATASET: hair_segmentation
+===========================================================================
+Path: C:\Users\kalya\OneDrive\Desktop\hair_analysis\hair_segmentation
+Total files: 8455
+Image files: 3151
+
+File types:
+  .ds_store       6
+  .jpg            6301
+  .pbm            2128
+  [NO EXTENSION]  20
+
+IMAGE INTEGRITY
+Corrupted/unreadable images: 0
+
+Image formats:
+  JPEG: 3151
+
+Most common dimensions:
+  227 x 227 : 2100
+  1000 x 1000 : 92
+  505 x 757 : 4
+  441 x 661 : 4
+  999 x 1000 : 4
+  451 x 676 : 3
+  454 x 681 : 3
+  461 x 691 : 3
+  519 x 692 : 3
+  414 x 621 : 2
+  413 x 620 : 2
+  421 x 632 : 2
+  786 x 1000 : 2
+  1000 x 835 : 2
+  477 x 635 : 2
+
+Image modes:
+  RGB: 3151
+
+Very small images (<100x100): 0
+===========================================================================
+DATASET: hair_type
+===========================================================================
+Path: C:\Users\kalya\OneDrive\Desktop\hair_analysis\hair_type
+Total files: 993
+Image files: 993
+
+File types:
+  .gif            1
+  .jpeg           82
+  .jpg            887
+  .png            23
+
+IMAGE INTEGRITY
+Corrupted/unreadable images: 0
+
+Image formats:
+  JPEG: 966
+  WEBP: 7
+  PNG: 19
+  GIF: 1
+
+Most common dimensions:
+  225 x 225 : 99
+  500 x 500 : 37
+  183 x 275 : 34
+  259 x 194 : 18
+  100 x 100 : 17
+  275 x 183 : 16
+  640 x 640 : 14
+  300 x 168 : 14
+  201 x 251 : 13
+  236 x 236 : 9
+  1080 x 1080 : 9
+  194 x 259 : 8
+  400 x 400 : 7
+  205 x 246 : 7
+  168 x 300 : 7
+
+Image modes:
+  RGB: 974
+  P: 5
+  RGBA: 14
+
+Very small images (<100x100): 1
+
+Examples:
+  hair_type\Straight Hair\image.png -> 24x24
+
+===========================================================================
+HAIR DISEASE DATASET
+===========================================================================
+
+TRAIN
+  Alopecia Areata                960
+  Contact Dermatitis             960
+  Folliculitis                   960
+  Head Lice                      960
+  Lichen Planus                  960
+  Male Pattern Baldness          960
+  Psoriasis                      960
+  Seborrheic Dermatitis          960
+  Telogen Effluvium              960
+  Tinea Capitis                  960
+  TOTAL: 9600
+
+VAL
+  Alopecia Areata                120
+  Contact Dermatitis             120
+  Folliculitis                   120
+  Head Lice                      120
+  Lichen Planus                  120
+  Male Pattern Baldness          120
+  Psoriasis                      120
+  Seborrheic Dermatitis          120
+  Telogen Effluvium              120
+  Tinea Capitis                  120
+  TOTAL: 1200
+
+TEST
+  Alopecia Areata                120
+  Contact Dermatitis             120
+  Folliculitis                   120
+  Head Lice                      120
+  Lichen Planus                  120
+  Male Pattern Baldness          120
+  Psoriasis                      120
+  Seborrheic Dermatitis          120
+  Telogen Effluvium              120
+  Tinea Capitis                  120
+  TOTAL: 1200
+
+CLASS CONSISTENCY
+  ✓ All splits contain the same classes.
+
+===========================================================================
+HAIR TYPE DATASET
+===========================================================================
+Total images: 993
+
+Class distribution:
+  Curly Hair                339
+  Straight Hair             323
+  Wavy Hair                 331
+
+Smallest class: 323
+Largest class: 339
+Minimum/Maximum ratio: 0.953
+
+===========================================================================
+HAIR SEGMENTATION DATASET
+===========================================================================
+__MACOSX files found: 4234
+
+FIGARO1K
+Original images: 1050
+Mask files: 1064
+
+Figaro split counts:
+  Original Training: 840
+  GT Training: 854
+  Original Testing: 210
+  GT Testing: 210
+
+PATCH1K
+Hair: 1050
+  Training: 840
+  Testing: 210
+NonHair: 1050
+  Training: 840
+  Testing: 210
+
+---------------------------------------------------------------------------
+DUPLICATE CHECK: hair_disease
+---------------------------------------------------------------------------
+Exact duplicate groups: 0
+Files belonging to duplicate groups: 0
+
+---------------------------------------------------------------------------
+DUPLICATE CHECK: hair_type
+---------------------------------------------------------------------------
+Exact duplicate groups: 15
+Files belonging to duplicate groups: 30
+
+Duplicate examples:
+
+Group 1:
+  hair_type\Curly Hair\5-hair-care-tips-for-men-with-curly-hair-1_1024x1024(1).jpg
+  hair_type\Curly Hair\5-hair-care-tips-for-men-with-curly-hair-1_1024x1024.jpg
+
+Group 2:
+  hair_type\Curly Hair\maxresdefault.jpg
+  hair_type\Wavy Hair\maxresdefault.jpg
+
+Group 3:
+  hair_type\Straight Hair\9ac1b800eec2e3f34c06d23cba2d7bf7.jpg
+  hair_type\Wavy Hair\9ac1b800eec2e3f34c06d23cba2d7bf7.jpg
+
+Group 4:
+  hair_type\Wavy Hair\bfb7c2cb984892e3453a51681487a360(1).jpg
+  hair_type\Wavy Hair\bfb7c2cb984892e3453a51681487a360.jpg
+
+Group 5:
+  hair_type\Wavy Hair\Bouncy-short-hairstyle(1).jpg
+  hair_type\Wavy Hair\Bouncy-short-hairstyle.jpg
+
+Group 6:
+  hair_type\Wavy Hair\e0432bf48e56681285c064b8cbafefbc(1).jpg
+  hair_type\Wavy Hair\e0432bf48e56681285c064b8cbafefbc.jpg
+
+Group 7:
+  hair_type\Wavy Hair\Faux-Hawk-Hairstyle(1).jpg
+  hair_type\Wavy Hair\Faux-Hawk-Hairstyle.jpg
+
+Group 8:
+  hair_type\Wavy Hair\image10(2).jpeg
+  hair_type\Wavy Hair\images56.jpg
+
+Group 9:
+  hair_type\Wavy Hair\image3.jpeg
+  hair_type\Wavy Hair\image4(1).jpeg
+
+Group 10:
+  hair_type\Wavy Hair\image6(2).jpeg
+  hair_type\Wavy Hair\images13(1).jpg
+
+Group 11:
+  hair_type\Wavy Hair\images133.jpg
+  hair_type\Wavy Hair\images155.jpg
+
+Group 12:
+  hair_type\Wavy Hair\long-hairstyles-for-indian-men-11(1).jpg
+  hair_type\Wavy Hair\long-hairstyles-for-indian-men-11.jpg
+
+Group 13:
+  hair_type\Wavy Hair\long-hairstyles-for-indian-men-6(1).jpg
+  hair_type\Wavy Hair\long-hairstyles-for-indian-men-6.jpg
+
+Group 14:
+  hair_type\Wavy Hair\siddharth-malhotra-actor-india-hairstyle(1).jpg
+  hair_type\Wavy Hair\siddharth-malhotra-actor-india-hairstyle.jpg
+
+Group 15:
+  hair_type\Wavy Hair\Wavy-Short-Hairstyles-for-Men(1).jpg
+  hair_type\Wavy Hair\Wavy-Short-Hairstyles-for-Men.jpg
+
+===========================================================================
+VERIFICATION COMPLETED
+===========================================================================

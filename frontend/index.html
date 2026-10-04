@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151713">
+  <title>AI Hair Intelligence</title>
+  <link rel="stylesheet" href="/styles.css?v=10">
+  <script src="/app.js?v=10" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="AI Hair Intelligence home">
+      <span class="wordmark-mark" aria-hidden="true">01</span>
+      <span>AI Hair Intelligence</span>
+    </a>
+    <span class="header-note">VISION LAB <span class="header-divider">/</span> RESEARCH PROTOTYPE</span>
+  </header>
+
+  <main class="page-shell">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">IMAGE ANALYSIS / COLOR STUDIO</p>
+      <h1 id="page-title">Hair, under the lens.</h1>
+      <p class="intro-copy">A four-part visual report for hair type, visible condition, segmentation, and color exploration.</p>
+      <div class="intro-tags" aria-label="Analysis features">
+        <span>Hair type</span><span>Visible condition</span><span>Hair mapping</span><span>Color preview</span>
+      </div>
+    </section>
+
+    <section class="workspace" aria-labelledby="upload-title">
+      <div class="section-heading">
+        <span class="step-index">01</span>
+        <div>
+          <h2 id="upload-title">Start with one photo</h2>
+          <p>Choose a sharp image with visible hair and even lighting.</p>
+        </div>
+      </div>
+
+      <form id="analysis-form">
+        <label class="upload-zone" for="photo">
+          <span class="upload-symbol" aria-hidden="true">＋</span>
+          <span class="upload-title">Drop a photo here or choose a file</span>
+          <span id="file-name" class="upload-hint">JPG, PNG, or WEBP</span>
+          <input id="photo" name="file" type="file" accept="image/jpeg,image/png,image/webp" required>
+        </label>
+
+        <div class="camera-entry">
+          <span>Prefer a live photo?</span>
+          <button id="camera-toggle" class="secondary-button" type="button">Use camera</button>
+        </div>
+
+        <section id="camera-panel" class="camera-panel" aria-label="Live camera capture" hidden>
+          <video id="camera-video" autoplay playsinline muted></video>
+          <div class="camera-actions">
+            <button id="capture-photo" class="secondary-button" type="button">Capture photo</button>
+            <button id="close-camera" class="text-button" type="button">Close camera</button>
+          </div>
+          <p id="camera-status" class="panel-caption" role="status" aria-live="polite"></p>
+        </section>
+
+        <button id="analyze-button" class="primary-button" type="submit">
+          <span>Run analysis</span><span aria-hidden="true">↗</span>
+        </button>
+      </form>
+
+      <p id="status-message" class="status-message" role="status" aria-live="polite" hidden></p>
+      <p class="medical-note">Image-based research output only. The condition model is not a medical diagnosis.</p>
+    </section>
+
+    <section id="results" class="results" aria-labelledby="results-title" hidden>
+      <nav class="page-nav" aria-label="Analysis pages">
+        <button class="page-nav-button is-active" type="button" data-page="type" aria-current="page"><span>01</span>Hair type &amp; condition</button>
+        <button class="page-nav-button" type="button" data-page="mapping"><span>02</span>Hair mapping</button>
+        <button class="page-nav-button" type="button" data-page="color"><span>03</span>Color preview</button>
+        <button class="page-nav-button" type="button" data-page="complete"><span>04</span>Entire analysis</button>
+      </nav>
+      <div class="report-source"><span>ANALYZING</span><strong id="source-name">Uploaded image</strong></div>
+
+      <section id="page-type" class="results-page is-active" aria-labelledby="results-title">
+        <div class="results-heading">
+          <div><p class="eyebrow">PAGE 01 · CLASSIFICATION</p><h2 id="results-title">Hair type &amp; visible condition</h2></div>
+        </div>
+        <div class="metric-grid two-column">
+          <article class="metric"><span class="metric-label">HAIR TYPE</span><strong id="hair-type">—</strong><span id="hair-type-confidence" class="metric-detail"></span></article>
+          <article class="metric"><span class="metric-label">MODEL'S TOP MATCH</span><strong id="disease">—</strong><span id="disease-confidence" class="metric-detail"></span></article>
+        </div>
+        <article class="prediction-panel condition-shortlist"><div class="panel-heading"><div><p class="eyebrow">RANKED OUTPUT</p><h3>Other model matches</h3></div><span class="panel-note">Top scores</span></div><ul id="condition-shortlist" class="candidate-list"></ul></article>
+        <article class="prediction-panel haircut-panel">
+          <div class="panel-heading"><div><p class="eyebrow">STYLE IDEAS</p><h3>Haircuts for your texture</h3></div><span class="panel-note">Based on predicted hair type</span></div>
+          <div id="haircut-recommendations" class="haircut-grid"></div>
+          <p class="panel-caption">Use these as inspiration; a stylist can tailor the cut to your density, face shape, and routine.</p>
+        </article>
+        <p class="disclaimer">This is an image-model match, not a diagnosis. Its confidence was calibrated on curated validation images and may not transfer to personal photos.</p>
+      </section>
+
+      <section id="page-mapping" class="results-page" aria-labelledby="mapping-title" hidden>
+        <div class="results-heading"><div><p class="eyebrow">PAGE 02 · SEGMENTATION</p><h2 id="mapping-title">Hair mapping</h2></div></div>
+        <div class="control-row page-controls">
+          <label class="field-label" for="region">Hair region
+            <select id="region" name="region"><option>Whole Hair</option><option>Scalp</option><option selected>Middle</option><option>Ends</option></select>
+          </label>
+          <span id="result-region" class="region-badge">Middle</span>
+        </div>
+        <article class="detail-panel mapping-panel">
+          <div class="panel-heading"><div><p class="eyebrow">SELECTED AREA</p><h3 id="hair-map-title">Detected hair region</h3></div></div>
+          <canvas id="hair-map" aria-label="Image with selected hair region highlighted"></canvas>
+          <p id="hair-map-caption" class="panel-caption">The selected region will be highlighted here.</p>
+        </article>
+      </section>
+
+      <section id="page-color" class="results-page" aria-labelledby="color-page-title" hidden>
+        <div class="results-heading"><div><p class="eyebrow">PAGE 03 · COLOR STUDIO</p><h2 id="color-page-title">Color preview</h2></div></div>
+        <div class="color-controls">
+          <label class="field-label" for="target-color">Choose a preview shade
+            <select id="target-color" name="target_color">
+              <option selected>Caramel</option><option>Soft Black</option><option>Jet Black</option><option>Mocha Brown</option><option>Natural Black</option><option>Mahogany</option><option>Warm Brown</option><option>Espresso</option><option>Chocolate Brown</option><option>Chestnut</option><option>Cinnamon</option><option>Auburn</option><option>Rust Copper</option><option>Copper</option><option>Rose Gold</option><option>Burgundy</option><option>Red Violet</option><option>Sunlit Blonde</option><option>Honey Blonde</option><option>Strawberry Blonde</option><option>Golden Blonde</option><option>Platinum Blonde</option><option>Silver Ash</option><option>Ash Blonde</option><option>Icy Blonde</option>
+            </select>
+          </label>
+          <span class="shade-choice-preview" aria-live="polite"><span id="shade-swatch" class="shade-choice-swatch" aria-hidden="true"></span><span id="shade-name">Caramel</span></span>
+        </div>
+        <div class="detail-grid color-detail-grid">
+          <article class="detail-panel color-panel">
+            <div class="panel-heading"><div><p class="eyebrow">CURRENT COLOR</p><h3 id="color-label">Estimated hair color</h3></div><span id="color-swatch" class="color-swatch" aria-hidden="true"></span></div>
+            <p id="color-value" class="color-value">—</p><p id="color-region" class="panel-caption"></p>
+          </article>
+          <article class="detail-panel preview-panel">
+            <div class="panel-heading"><div><p class="eyebrow">VIRTUAL COLOR</p><h3>Before &amp; after</h3></div></div>
+            <div id="preview-comparison" class="preview-comparison">
+              <figure><img id="original-preview" class="preview-image" alt="Original uploaded photograph"><figcaption>Original</figcaption></figure>
+              <figure><img id="preview-image" class="preview-image" alt="Virtual hair color preview"><figcaption id="preview-caption">Caramel preview</figcaption></figure>
+            </div>
+          </article>
+        </div>
+        <article class="prediction-panel shade-recommendation-panel">
+          <div class="panel-heading"><div><p class="eyebrow">MATCHED TO YOUR HAIR</p><h3>Recommended shades</h3></div><span class="panel-note">Hair type + detected tone</span></div>
+          <div id="color-recommendations" class="shade-recommendation-grid"></div>
+        </article>
+      </section>
+
+      <section id="page-complete" class="results-page" aria-labelledby="complete-title" hidden>
+        <div class="results-heading"><div><p class="eyebrow">PAGE 04 · REPORT</p><h2 id="complete-title">Entire analysis</h2></div></div>
+        <div class="metric-grid">
+          <article class="metric"><span class="metric-label">HAIR TYPE</span><strong id="all-hair-type">—</strong><span id="all-hair-type-confidence" class="metric-detail"></span></article>
+          <article class="metric"><span class="metric-label">MODEL'S TOP MATCH</span><strong id="all-disease">—</strong><span id="all-disease-confidence" class="metric-detail"></span></article>
+          <article class="metric"><span class="metric-label">HAIR COVERAGE</span><strong id="coverage">—</strong><span class="metric-detail">of image area</span></article>
+          <article class="metric"><span class="metric-label">IMAGE QUALITY</span><strong id="quality-score">—</strong><span id="quality-status" class="metric-detail"></span></article>
+          <article class="metric"><span class="metric-label">DETECTED COLOR</span><strong id="all-color">—</strong><span id="all-color-value" class="metric-detail"></span></article>
+          <article class="metric"><span class="metric-label">TARGET SHADE</span><strong id="all-target-color">—</strong><span id="all-selected-region" class="metric-detail"></span></article>
+        </div>
+        <div class="detail-grid complete-detail-grid">
+          <article class="prediction-panel"><h3>Hair-type candidates</h3><ul id="hair-type-candidates" class="candidate-list"></ul></article>
+          <article class="prediction-panel"><h3>Condition candidates</h3><ul id="disease-candidates" class="candidate-list"></ul></article>
+        </div>
+        <p class="disclaimer">Condition predictions are research outputs, not diagnoses. Validation calibration does not guarantee performance on personal photos. Lighting, camera settings, hair treatments, and other factors may affect results.</p>
+      </section>
+    </section>
+
+    <footer class="site-footer">AI Hair Intelligence <span>·</span> Research Prototype</footer>
+  </main>
+</body>
+</html>
